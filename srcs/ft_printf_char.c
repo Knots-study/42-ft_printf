@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/22 11:07:33 by knottey           #+#    #+#             */
-/*   Updated: 2023/05/22 11:21:57 by knottey          ###   ########.fr       */
+/*   Created: 2023/05/29 16:13:00 by knottey           #+#    #+#             */
+/*   Updated: 2023/05/29 16:49:20 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <unistd.h>
 
-int ft_printf(const char *, ...)
+int	ft_printf_char(const char c)
 {
-	printf("HELLO WORLD!");
-	return (0);
+	write(1, &c, 1);
 }

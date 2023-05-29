@@ -8,3 +8,4 @@ printf-tester/
 
 *.o
 *.a
+*.out
