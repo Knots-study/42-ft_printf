@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/22 11:07:33 by knottey           #+#    #+#             */
-/*   Updated: 2023/05/29 16:49:56 by knottey          ###   ########.fr       */
+/*   Created: 2023/05/29 21:09:57 by knottey           #+#    #+#             */
+/*   Updated: 2023/05/30 22:06:19 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-//#include "ft_printf.h"
-
-int	ft_printf_char(char c);
+#include "ft_printf.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -57,46 +52,25 @@ char	*ft_strdup(const char *s)
 	dest = (char *)malloc(sizeof(char) * (s_len + 1));
 	if (dest == NULL)
 		return (NULL);
-	ft_memcpy(dest, s, s_len + 1);
+	ft_memcpy(dest, s, s_len);
 	dest[s_len] = '\0';
 	return (dest);
 }
 
-int	select_formats(const char *format, const char *str)
+char	*ft_strchr(const char *s, int c)
 {
-	format++;
-	if (*format == 'c')
-		ft_printf_char(*str);
-	// else if (format == 's')
-	// 	ft_printf_s();
-	// else if (format == 'p')
-	// 	ft_printf_p();
-	// else if (format == 'd' || format == 'i')
-	// 	ft_printf_di();
-	// else if (format == 'u')
-	// 	ft_printf_u();
-	// else if (format == 'x' || format == 'X')
-	// 	ft_printf_xX();
-	// else if (format == '%')
-	// 	ft_print_percent();
-	return (0);
-}
+	size_t	idx;
+	size_t	length;
 
-
-int ft_printf(const char *format, ...)
-{
-	va_list	args;
-	char	*str_formats;
-
-	va_start(args, format);
-	str_formats = ft_strdup(format);
-	format = va_arg(args, char *);
-	select_formats(str_formats, format);
-	va_end(args);
-	return (0);
-}
-
-int main(void)
-{
-	ft_printf("%c", 'a');
+	if (s == NULL)
+		return (NULL);
+	length = ft_strlen(s) + 1;
+	idx = 0;
+	while (idx < length)
+	{
+		if (s[idx] == (char)c)
+			return ((char *)(s + idx));
+		idx++;
+	}
+	return (NULL);
 }

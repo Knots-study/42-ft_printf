@@ -1,32 +1,45 @@
 NAME = libftprintf.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = ft_printf.c
-BONUS_SRCS = ft_printf_bonus.c
-INCLUDES = ft_printf.h
-INCLUDES_BONUS = ft_printf_bonus.h
-OBJS = $(SRCS:.c=.o)
-BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+RM = rm -f
+AR = ar rcs
 
-all: $(NAME)
+SRC_DIR = src/
+SRC = ft_printf.c \
+		ft_printf_char.c \
+		ft_printf_string.c \
+		ft_printf_int10.c \
+		ft_printf_pointer.c \
+		ft_printf_hex.c \
+		ft_printf_utils.c 
+SRCS = $(addprefix $(SRC_DIR), $(SRC))
+OBJ_DIR = obj/
+OBJS = $(addprefix $(OBJ_DIR), $(SRC:.c=.o)) # オブジェクトファイルを obj/ ディレクトリに生成するように修正
 
-$(OBJS): $(SRCS) $(INCLUDES)
-	$(CC) $(CFLAGS) -c $(SRCS) -I .
-$(BONUS_OBJS): $(BONUS_SRCS) $(INCLUDES_BONUS)
-	$(CC) $(CFLAGS) -c $(BONUS_SRCS) -I .
+INC_DIR = include/
+INC = ft_printf.h
+INCS = $(addprefix $(INC_DIR), $(INC))
 
+# ターゲットと依存関係を設定
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	$(AR) $(NAME) $(OBJS)
 
-bonus: $(OBJS) $(BONUS_OBJS)
-	ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJ_DIR) # オブジェクトファイルの依存関係を修正
+	$(CC) $(CFLAGS) -c $< -o $@ -I $(INC_DIR)
 
-clean: 
-	rm -f $(OBJS)
+$(OBJ_DIR): # オブジェクトファイルを生成するディレクトリを作成するルールを追加
+	mkdir -p $(OBJ_DIR)
+
+# クリーンアップルールを修正
+clean:
+	$(RM) -r $(OBJ_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
 .PHONY: all clean fclean re
+
+# ターゲットを all に修正
+all: $(NAME)

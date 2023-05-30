@@ -6,13 +6,19 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:13:00 by knottey           #+#    #+#             */
-/*   Updated: 2023/05/29 16:49:20 by knottey          ###   ########.fr       */
+/*   Updated: 2023/05/30 23:20:26 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "ft_printf.h"
 
-int	ft_printf_char(const char c)
+void	ft_putchar(const char c)
 {
-	write(1, &c, 1);
+	write(STDOUT_FILENO, &c, 1);
+}
+
+size_t	ft_printf_char(const int c)
+{
+	ft_putchar((const char)c);
+	return (1);
 }
