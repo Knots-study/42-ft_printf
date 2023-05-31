@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:26:01 by knottey           #+#    #+#             */
-/*   Updated: 2023/05/30 22:11:49 by knottey          ###   ########.fr       */
+/*   Updated: 2023/05/31 17:16:42 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,17 @@ void	ft_putstr(const char *str)
 
 size_t	ft_printf_string(const char *str)
 {
-	size_t	idx;
+	size_t	print_length;
 
 	if (str == NULL)
-		return (0);
-	idx = ft_strlen(str);
-	ft_putstr(str);
-	return (idx);
+	{
+		ft_putstr("(null)");
+		print_length = 6;
+	}
+	else
+	{
+		ft_putstr(str);
+		print_length = ft_strlen(str);
+	}
+	return (print_length);
 }
