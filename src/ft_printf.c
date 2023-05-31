@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:07:33 by knottey           #+#    #+#             */
-/*   Updated: 2023/05/31 06:11:04 by knottey          ###   ########.fr       */
+/*   Updated: 2023/05/31 17:30:12 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static size_t	select_formats(const char format, va_list args)
 	else if (format == 'x' || format == 'X')
 		print_length += ft_printf_hex(va_arg(args, const unsigned int), format);
 	else if (format == '%')
-		print_length += ft_printf_char(va_arg(args, const int));
+		print_length += ft_printf_char(format);
 	return (print_length);
 }
 
@@ -57,10 +57,4 @@ int ft_printf(const char *format, ...)
 	}
 	va_end(args);
 	return (print_length);
-}
-
-int main(void)
-{
-	ft_printf(" %p %p\n", INT_MAX, INT_MIN);
-	printf(" %p %p\n", INT_MAX, INT_MIN);
 }

@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:13:00 by knottey           #+#    #+#             */
-/*   Updated: 2023/05/30 23:20:26 by knottey          ###   ########.fr       */
+/*   Updated: 2023/05/31 17:34:39 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void	ft_putchar(const char c)
 
 size_t	ft_printf_char(const int c)
 {
-	ft_putchar((const char)c);
+	ft_putchar(c);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:08:06 by knottey           #+#    #+#             */
-/*   Updated: 2023/05/31 06:09:43 by knottey          ###   ########.fr       */
+/*   Updated: 2023/05/31 17:24:42 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdint.h>
 # include <unistd.h>
 
-# define modifier "cspdiuxX"
+# define modifier "cspdiuxX%"
 # define HEX "0123456789abcdef"
 # define HEX_CAP "0123456789ABCDEF"
 
