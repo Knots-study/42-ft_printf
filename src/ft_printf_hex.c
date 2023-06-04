@@ -6,26 +6,45 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:30:16 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/04 22:02:14 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/05 08:15:49 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf_hex(unsigned int addr, const char format)
+int	ft_printf_hex(unsigned int addr, const char format, t_formats ex_formats)
 {
-	int	addr_len;
+	int	print_length;
 
-	addr_len = 0;
-	if (addr == 0)
+	print_length = 0;
+	if (ex_formats.left == 1)
 	{
-		ft_putchar('0');
-		return (addr_len);
+		if (ex_formats.prefix == 1 && format == 'x')
+			print_length += write(1, "0x", 2);
+		else if (ex_formats.prefix == 1 && format == 'X')
+			print_length += write(1, "0X", 2);
+		if (addr == 0)
+			print_length += ft_putchar('0');
+		if (format == 'x')
+			ft_put_address(addr, HEX);
+		else
+			ft_put_address(addr, HEX_CAP);
+		print_length += ft_addr_len(addr);
 	}
-	if (format == 'x')
-		ft_put_address(addr, HEX);
-	else
-		ft_put_address(addr, HEX_CAP);
-	addr_len += ft_addr_len(addr);
-	return (addr_len);
+	print_length += ft_zeroleft(ft_addr_len(addr), ex_formats);
+	if (ex_formats.left == 0)
+	{
+		if (ex_formats.prefix == 1 && format == 'x')
+			print_length += write(1, "0x", 2);
+		else if (ex_formats.prefix == 1 && format == 'X')
+			print_length += write(1, "0X", 2);
+		if (addr == 0)
+			print_length += ft_putchar('0');
+		if (format == 'x')
+			ft_put_address(addr, HEX);
+		else
+			ft_put_address(addr, HEX_CAP);
+		print_length += ft_addr_len(addr);
+	}
+	return (print_length);
 }

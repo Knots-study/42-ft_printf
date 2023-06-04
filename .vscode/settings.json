@@ -5,6 +5,10 @@
 		"xstring": "c",
 		"ft_printf.h": "c",
 		"ios": "c",
-		"xiosbase": "c"
+		"xiosbase": "c",
+		"sstream": "c",
+		"iterator": "c",
+		"memory": "c",
+		"xutility": "c"
 	}
 }

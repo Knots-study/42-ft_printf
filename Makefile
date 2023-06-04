@@ -11,7 +11,8 @@ SRC = ft_printf.c \
 		ft_printf_int10.c \
 		ft_printf_pointer.c \
 		ft_printf_hex.c \
-		ft_printf_utils.c 
+		ft_printf_utils.c \
+		ft_printf_ex_formats.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 OBJ_DIR = obj/
 OBJS = $(addprefix $(OBJ_DIR), $(SRC:.c=.o)) # オブジェクトファイルを obj/ ディレクトリに生成するように修正
@@ -29,6 +30,8 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS) | $(OBJ_DIR) # オブジェクトファイ�
 
 $(OBJ_DIR): # オブジェクトファイルを生成するディレクトリを作成するルールを追加
 	mkdir -p $(OBJ_DIR)
+
+bonus: all
 
 # クリーンアップルールを修正
 clean:

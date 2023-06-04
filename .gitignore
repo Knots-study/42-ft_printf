@@ -1,10 +1,4 @@
-
-ft_printf_test/
-ft_printf_tester/
-pft/
-printfTester/
-printf-tester-tokyo/
-printf-tester/
+printfTester/*
 
 *.o
 *.a

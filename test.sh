@@ -2,11 +2,12 @@
 
 #Tripouille/printfTester
 cd printfTester
-make a
+make b
 cd ../
 
 #usatie/printf-tester-tokyo
-# make test -C printf-tester-tokyo
+# cd printf-tester-tokyo
+# make test
 
 #AntoineBourin/printf-tester
 # make re
@@ -18,7 +19,22 @@ cd ../
 
 #gavinfielder/pft
 # cd pft
-# ./test
+# make re
+# ./test c
+# ./test s
+# ./test p
+# ./test d
+# ./test i
+# ./test u
+# ./test x
+# ./test X
+# ./test pct
+# ./test zp
+# ./test lj
+# ./test pct_
+# ./enable-test bonus_af
+# ./enable-test bonus_sp
+# ./enable-test bonus_as
 # cd ../
 
 #paulo-santana/ft_printf_tester
