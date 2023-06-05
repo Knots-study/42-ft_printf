@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 06:28:51 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/05 08:30:21 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/05 09:24:20 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ft_zeroleft(int word_length, t_formats ex_formats)
 	{
 		if (ex_formats.zero == 1)
 			print_length += ft_putchar('0');
+		else
+			print_length += ft_putchar(' ');
 		word_length++;
 	}
 	return (print_length);
