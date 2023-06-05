@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:07:33 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/05 14:15:36 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/06 05:48:15 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,6 @@ static void	judge_ex_formats(t_formats *ex_formats, const char **format)
 
 // int main(void)
 // {
-// 	printf("%d\n",printf(" %-3d ", 1));
-// 	printf("%d\n",ft_printf(" %-3d ", 1));
+// 	printf("%d\n",printf("[ %-1d ]", -9));
+// 	printf("%d\n",ft_printf("[ %-1d ]", -9));
 // }

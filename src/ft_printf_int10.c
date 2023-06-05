@@ -6,13 +6,13 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:30:59 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/05 14:23:41 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/06 05:47:48 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_intlen(long long int n)
+static int	ft_get_digit(long long int n)
 {
 	int	length;
 
@@ -21,7 +21,7 @@ static int	ft_intlen(long long int n)
 		return (1);
 	if (n < 0)
 	{
-		length++;
+		//length++;
 		n *= -1;
 	}
 	while (n > 0)
@@ -73,7 +73,7 @@ int ft_printf_sign(long long int *num, t_formats *ex_formats)
 	int print_length;
 
 	print_length = 0;
-	if (*num < 0 && ex_formats->prec == 0)
+	if (*num < 0)
 	{
 		print_length += ft_putchar('-');
 		(*num) *= -1;
@@ -82,12 +82,10 @@ int ft_printf_sign(long long int *num, t_formats *ex_formats)
 	else if (ex_formats->plus == 1)
 	{
 		print_length += ft_putchar('+');
-		(ex_formats->width)--;
 	}
 	else if(ex_formats->space == 1)
 	{
 		print_length += ft_putchar(' ');
-		(ex_formats->width)--;
 	}
 	return (print_length);
 }
@@ -102,47 +100,51 @@ int padding_something(int times, const char something)
 		ft_putchar(something);
 		i++;
 	}
-	return (times);
+	return (MAX(times, 0));
 }
 
+
+// 最小フィールド幅は、 変換した結果がその長さ以下であった場合に、左側が空白で埋められる
+    //フラグに0がある場合、変換した値の左側を空白の代わりに0で埋める。
+// 精度は、最低表示桁数を表し、足りない場合は0で埋められる
+// -の場合、フィールド幅は表示桁数に-の一文字分を含むが、精度は-を表示桁数に含めない。
 int	ft_printf_int10(long long int num, t_formats ex_formats)
 {
 	int print_length;
-	int	int_len;
-	int actual_numlen;
-	int actual_width;
 
 	//ft_flags_print(ex_formats);
 	print_length = 0;
-	int_len = ft_intlen(num);
-	actual_numlen = MAX(int_len, ex_formats.prec);
-	actual_width = MAX(actual_numlen, ex_formats.width);	
+	//実際に表示する数字の文字数(flagで指定した0とか空白とか含まず)
+	ex_formats.prec = MAX(ft_get_digit(num), ex_formats.prec);
+	ex_formats.width = MAX(ex_formats.prec, ex_formats.width);//実際に表示する文字の文字数
 	if (ex_formats.left == 1)
 	{
 		print_length += ft_printf_sign(&num, &ex_formats);
+		print_length += padding_something(ex_formats.prec - ft_get_digit(num), '0');
 		print_length += ft_putnbr(num);
-		print_length += padding_something(actual_width - actual_numlen, ' ');
+		print_length += padding_something(ex_formats.width - ex_formats.prec, ' ');
 	}
-	else if (ex_formats.zero == 1)
+	else if (ex_formats.zero == 1)//(-と0が同時に指定された場合0が無視される)
 	{
-		if (ex_formats.prec == 0)
-		{
-			print_length += ft_printf_sign(&num, &ex_formats);
-			print_length += padding_something(actual_width - actual_numlen, ' ');
-			print_length += ft_putnbr(num);
-		}
-		else
-		{
-			print_length += ft_printf_sign(&num, &ex_formats);
-			print_length += padding_something(actual_width - actual_numlen, '0');
-			print_length += ft_putnbr(num);
-		}
+		print_length += ft_printf_sign(&num, &ex_formats);
+		print_length += padding_something(ex_formats.width - ex_formats.prec, '0');
 	}
 	else
 	{
+		print_length += padding_something(ex_formats.width - ex_formats.prec, ' ');
 		print_length += ft_printf_sign(&num, &ex_formats);
-		print_length += padding_something(actual_width - actual_numlen, ' ');
-		print_length += ft_putnbr(num);
 	}
+	// if (ex_formats.zero == 1)
+	// {
+	// 	print_length += ft_printf_sign(&num, &ex_formats);
+	// 	print_length += padding_something(ex_formats.width - ex_formats.prec, '0');
+	// 	print_length += ft_putnbr(num);
+	// }
+	// if (ex_formats.prec >= 0)
+	// {
+	// 	print_length += ft_printf_sign(&num, &ex_formats);
+	// 	print_length += padding_something(ex_formats.width - ex_formats.prec, '0');
+	// 	print_length += ft_putnbr(num);
+	// }
 	return (print_length);
 }
