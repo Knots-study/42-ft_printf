@@ -6,12 +6,16 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 06:28:51 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/05 09:24:20 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/05 10:19:11 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+//精度問題
+//数値変換の場合->printf("[%.10d]\n", 1234567);[0001234567]//0埋めされる
+//文字列の場合->printf("[%.10s]\n", "apple"); [apple]//0埋めされない
+//フィールド長と精度の関係をちゃんと考える
 int	ft_zeroleft(int word_length, t_formats ex_formats)
 {
 	int	print_length;
