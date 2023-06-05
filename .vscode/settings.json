@@ -9,6 +9,9 @@
 		"sstream": "c",
 		"iterator": "c",
 		"memory": "c",
-		"xutility": "c"
+		"xutility": "c",
+		"algorithm": "c",
+		"xmemory": "c",
+		"xtree": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:08:06 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/05 08:24:01 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/05 12:27:56 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define MODIFIER "cspdiuxX%"
 # define HEX "0123456789abcdef"
 # define HEX_CAP "0123456789ABCDEF"
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 typedef struct s_formats
 {
@@ -44,8 +46,8 @@ int		ft_printf(const char *format, ...);
 int 	ft_printf_char(int c, t_formats ex_formats);
 int 	ft_putchar(unsigned char c);
 int		ft_zeroleft(int word_length, t_formats ex_formats);
-size_t	ft_printf_string(const char *str);
-void	ft_putstr(const char *str);
+int		ft_printf_string(const char *str, t_formats ex_formats);
+int		ft_putstr(const char *str);
 int		ft_printf_hex(unsigned int addr, const char format, t_formats ex_formats);
 int		ft_printf_int10(long long int di, t_formats ex_formats);
 int		ft_addr_len(uintptr_t addr);
