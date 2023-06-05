@@ -6,30 +6,34 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:26:01 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/04 22:03:07 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/05 09:38:18 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr(const char *str)
+int ft_putstr(const char *str)
 {
-	size_t	idx;
+	int	idx;
 
-	if (str == NULL)
-		return ;
 	idx = 0;
+	if (str == NULL)
+		return (idx);
 	while (str[idx] != '\0')
 	{
 		ft_putchar(str[idx]);
 		idx++;
 	}
+	return (idx);
 }
 
-size_t	ft_printf_string(const char *str)
+int	ft_printf_string(const char *str, t_formats ex_formats)
 {
-	size_t	print_length;
+	int	print_length;
+	int	word_length;
 
+	print_length = 0;
+	word_length = ft_strlen(str);
 	if (str == NULL)
 	{
 		ft_putstr("(null)");
@@ -37,8 +41,11 @@ size_t	ft_printf_string(const char *str)
 	}
 	else
 	{
-		ft_putstr(str);
-		print_length = ft_strlen(str);
+		if (ex_formats.left == 1)
+			print_length += ft_putstr(str);
+		print_length += ft_zeroleft(word_length, ex_formats);
+		if (ex_formats.left == 0)
+			print_length += ft_putstr(str);
 	}
 	return (print_length);
 }

@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:07:33 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/05 08:23:50 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/05 09:39:16 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static size_t	select_formats(const char format, va_list *args, t_formats ex_form
 	if (format == 'c')
 		print_length += ft_printf_char(va_arg(*args, int), ex_formats);
 	else if (format == 's')
-		print_length += ft_printf_string(va_arg(*args, const char *));
+		print_length += ft_printf_string(va_arg(*args, const char *), ex_formats);
 	else if (format == 'p')
 		print_length += ft_printf_pointer(va_arg(*args, uintptr_t));
 	else if (format == 'd' || format == 'i')
@@ -95,3 +95,9 @@ static void	judge_ex_formats(t_formats *ex_formats, const char **format)
 		}
 	}
 }
+
+// int main(void)
+// {
+// 	printf("%d\n",printf("%1s", ""));
+// 	printf("%d\n",ft_printf("%1s", ""));
+// }
