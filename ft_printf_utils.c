@@ -5,33 +5,62 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/29 16:13:00 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/07 12:02:07 by knottey          ###   ########.fr       */
+/*   Created: 2023/05/29 21:09:57 by knottey           #+#    #+#             */
+/*   Updated: 2023/06/06 22:10:32 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_putchar(unsigned char c)
+size_t	ft_strlen(const char *s)
 {
-	write(STDOUT_FILENO, &c, 1);
-	return (1);
-}
-
-int	ft_strlen(const char *s)
-{
-	int	length;
+	size_t	length;
 
 	length = 0;
+	if (s == NULL)
+		return (0);
 	while (s[length] != '\0')
 		length++;
 	return (length);
 }
 
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	char		*c_dest;
+	const char	*c_src;
+	size_t		i;
+
+	c_dest = (char *)dest;
+	c_src = (const char *)src;
+	i = 0;
+	while (i < n)
+	{
+		c_dest[i] = c_src[i];
+		i++;
+	}
+	return (dest);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*dest;
+	size_t	s_len;
+
+	if (s == NULL)
+		return (NULL);
+	s_len = ft_strlen(s);
+	dest = (char *)malloc(sizeof(char) * (s_len + 1));
+	if (dest == NULL)
+		return (NULL);
+	ft_memcpy(dest, s, s_len);
+	dest[s_len] = '\0';
+	return (dest);
+}
+
 char	*ft_strchr(const char *s, int c)
 {
-	int	idx;
-	int	length;
+	size_t	idx;
+	size_t	length;
 
 	if (s == NULL)
 		return (NULL);
@@ -44,17 +73,4 @@ char	*ft_strchr(const char *s, int c)
 		idx++;
 	}
 	return (NULL);
-}
-
-int repeat_char(int times, const char smth)
-{
-	int	i;
-
-	i = 0;
-	while (i < times)
-	{
-		ft_putchar(smth);
-		i++;
-	}
-	return (MAX(times, 0));
 }

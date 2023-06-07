@@ -11,7 +11,7 @@
                 "-g",
                 "src/*.c",
 				"-I",
-				"include",
+				"./include",
 				"-Wall",
 				"-Wextra",
 				//"-Werror",

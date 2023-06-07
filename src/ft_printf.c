@@ -6,82 +6,36 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:07:33 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/06 05:48:15 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/07 12:30:29 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	judge_ex_formats(t_formats *ex_formats, const char **format);
-
-static size_t	select_formats(const char format, va_list *args, t_formats ex_formats)
+static void	check_printf_flags(t_pformats *p_exf, const char **format)
 {
-	size_t	print_length;
-
-	print_length = 0;
-	if (format == 'c')
-		print_length += ft_printf_char(va_arg(*args, int), ex_formats);
-	else if (format == 's')
-		print_length += ft_printf_string(va_arg(*args, const char *), ex_formats);
-	else if (format == 'p')
-		print_length += ft_printf_pointer(va_arg(*args, uintptr_t));
-	else if (format == 'd' || format == 'i')
-		print_length += ft_printf_int10(va_arg(*args, int), ex_formats);
-	else if (format == 'u')
-		print_length += ft_printf_int10(va_arg(*args, unsigned int), ex_formats);
-	else if (format == 'x' || format == 'X')
-		print_length += ft_printf_hex(va_arg(*args, unsigned int), format, ex_formats);
-	else if (format == '%')
-		print_length += ft_putchar(format);
-	return (print_length);
-}
-
-int	ft_printf(const char *format, ...)
-{
-	va_list		args;
-	t_formats	ex_formats;
-	size_t		print_length;
-
-	print_length = 0;
-	va_start(args, format);
-	while (*format != '\0')
-	{
-		if (*format == '%')
-		{
-			format++;
-			judge_ex_formats(&ex_formats, &format);
-			if (ft_strchr(MODIFIER, *format))
-				print_length += select_formats(*format, &args, ex_formats);
-		}
-		else
-			print_length += ft_putchar(*format);
-		format++;
-	}
-	va_end(args);
-	return (print_length);
-}
-
-static void	judge_ex_formats(t_formats *ex_formats, const char **format)
-{
-	*ex_formats = (t_formats){0};
-	while (ft_strchr(" -+#0", **format))
+	while (ft_strchr(PRINTF_FLAGS, **format))
 	{
 		if (**format == '-')
-			ex_formats->left = 1;
+			p_exf->left = 1;
 		else if (**format == '0')
-			ex_formats->zero = 1;
+			p_exf->zero = 1;
 		else if (**format == '#')
-			ex_formats->prefix = 1;
+			p_exf->prefix = 1;
 		else if (**format == ' ')
-			ex_formats->space = 1;
+			p_exf->space = 1;
 		else if (**format == '+')
-			ex_formats->plus = 1;	
+			p_exf->plus = 1;
 		(*format)++;
 	}
+}
+
+static void	measure_width_prec(t_pformats *p_exf, const char **format)
+{
 	while ('0' <= **format && **format <= '9')
 	{
-		ex_formats->width *= 10;
-		ex_formats->width += (**format - '0');
+		p_exf->width *= 10;
+		p_exf->width += (**format - '0');
 		(*format)++;
 	}
 	if (**format == '.')
@@ -89,15 +43,66 @@ static void	judge_ex_formats(t_formats *ex_formats, const char **format)
 		(*format)++;
 		while ('0' <= **format && **format <= '9')
 		{
-			ex_formats->prec *= 10;
-			ex_formats->prec += (**format - '0');
+			p_exf->prec *= 10;
+			p_exf->prec += (**format - '0');
 			(*format)++;
 		}
 	}
+	else
+		p_exf->prec = -1;
+}
+
+static int	select_conspec(const char format, va_list *args, t_pformats p_exf)
+{
+	int	p_len;
+
+	p_len = 0;
+	if (format == 'c')
+		p_len += ft_printf_char(va_arg(*args, int), p_exf);
+	else if (format == 's')
+		p_len += ft_printf_string(va_arg(*args, const char *), p_exf);
+	// else if (format == 'p')
+	// 	p_len += ft_printf_pointer(va_arg(*args, uintptr_t), p_exf);
+	if (format == 'd' || format == 'i')
+		p_len += ft_printf_int(va_arg(*args, int), p_exf);
+	else if (format == 'u')
+		p_len += ft_printf_int(va_arg(*args, unsigned int), p_exf);
+	// else if (format == 'x' || format == 'X')
+	// 	p_len += ft_printf_hex(va_arg(*args, unsigned int), format, p_exf);
+	// else if (format == '%')
+	// 	p_len += ft_putchar(format);
+	return (p_len);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list		args;
+	t_pformats	p_exf;
+	size_t		p_len;
+
+	p_len = 0;
+	va_start(args, format);
+	while (*format != '\0')
+	{
+		if (*format == '%')
+		{
+			format++;
+			p_exf = (t_pformats){0};
+			check_printf_flags(&p_exf, &format);
+			measure_width_prec(&p_exf, &format);
+			if (ft_strchr(MODIFIER, *format))
+				p_len += select_conspec(*format, &args, p_exf);
+		}
+		else
+			p_len += ft_putchar(*format);
+		format++;
+	}
+	va_end(args);
+	return (p_len);
 }
 
 // int main(void)
 // {
-// 	printf("%d\n",printf("[ %-1d ]", -9));
-// 	printf("%d\n",ft_printf("[ %-1d ]", -9));
+// 	printf("%d\n", printf("%-2.2d\n", -123));
+// 	printf("%d\n", ft_printf("%-2.2d\n", -123));
 // }

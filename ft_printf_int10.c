@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:30:59 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/06 05:47:48 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/07 09:45:14 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ int padding_something(int times, const char something)
 	return (MAX(times, 0));
 }
 
-
 // 最小フィールド幅は、 変換した結果がその長さ以下であった場合に、左側が空白で埋められる
     //フラグに0がある場合、変換した値の左側を空白の代わりに0で埋める。
 // 精度は、最低表示桁数を表し、足りない場合は0で埋められる
@@ -126,25 +125,34 @@ int	ft_printf_int10(long long int num, t_formats ex_formats)
 	}
 	else if (ex_formats.zero == 1)//(-と0が同時に指定された場合0が無視される)
 	{
-		print_length += ft_printf_sign(&num, &ex_formats);
-		print_length += padding_something(ex_formats.width - ex_formats.prec, '0');
+		if (ex_formats.prec == -1)
+		{
+			print_length += padding_something(ex_formats.width - ex_formats.prec, ' ');
+			print_length += ft_putnbr(num);
+		}
+		else
+		{
+			if (num < 0)
+			{
+				print_length += ft_printf_sign(&num, &ex_formats);
+				print_length += padding_something(ex_formats.width - ex_formats.prec, '0');
+				print_length += ft_putnbr(num);
+			}
+			else
+			{
+				print_length += ft_printf_sign(&num, &ex_formats);
+				print_length += padding_something(ex_formats.width - ex_formats.prec, '0');
+				print_length += ft_putnbr(num);
+			}
+		}
+		
 	}
 	else
 	{
 		print_length += padding_something(ex_formats.width - ex_formats.prec, ' ');
 		print_length += ft_printf_sign(&num, &ex_formats);
+		print_length += padding_something(ex_formats.prec - ft_get_digit(num), '0');
+		print_length += ft_putnbr(num);
 	}
-	// if (ex_formats.zero == 1)
-	// {
-	// 	print_length += ft_printf_sign(&num, &ex_formats);
-	// 	print_length += padding_something(ex_formats.width - ex_formats.prec, '0');
-	// 	print_length += ft_putnbr(num);
-	// }
-	// if (ex_formats.prec >= 0)
-	// {
-	// 	print_length += ft_printf_sign(&num, &ex_formats);
-	// 	print_length += padding_something(ex_formats.width - ex_formats.prec, '0');
-	// 	print_length += ft_putnbr(num);
-	// }
 	return (print_length);
 }

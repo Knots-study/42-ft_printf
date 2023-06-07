@@ -3,3 +3,4 @@ printfTester/*
 *.o
 *.a
 *.out
+pft/

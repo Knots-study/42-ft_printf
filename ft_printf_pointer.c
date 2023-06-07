@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:25:48 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/04 22:02:56 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/06 07:33:30 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,22 @@ int	ft_addr_len(uintptr_t addr)
 	return (length);
 }
 
-void	ft_put_address(uintptr_t addr, const char *hex)
+int	ft_put_address(uintptr_t addr, const char *hex, int count)
 {
 	char	addr_char;
+	int		addr_length;
 
+	addr_length = 0;
+	if (count == 0 && addr == 0)
+		return (ft_putchar('0'));
 	if (addr > 0)
 	{
-		ft_put_address(addr / 16, hex);
+		addr_length += ft_put_address(addr / 16, hex, count + 1);
 		addr_char = hex[addr % 16];
-		ft_putchar(addr_char);
+		addr_length += ft_putchar(addr_char);
 	}
+	
+	return (addr_length);
 }
 
 int	ft_printf_pointer(uintptr_t addr)
@@ -49,9 +55,6 @@ int	ft_printf_pointer(uintptr_t addr)
 		addr_len++;
 	}
 	else
-	{
-		ft_put_address(addr, HEX);
-		addr_len += ft_addr_len(addr);
-	}
+		addr_len += ft_put_address(addr, HEX, 0);
 	return (addr_len);
 }
