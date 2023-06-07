@@ -6,13 +6,13 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:26:01 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/07 10:50:28 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/07 14:12:19 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int ft_putstr(const char *str, int times)
+int	ft_putstr(const char *str, int times)
 {
 	int	idx;
 

@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:07:33 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/07 12:30:29 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/07 14:27:06 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ static int	select_conspec(const char format, va_list *args, t_pformats p_exf)
 		p_len += ft_printf_int(va_arg(*args, int), p_exf);
 	else if (format == 'u')
 		p_len += ft_printf_int(va_arg(*args, unsigned int), p_exf);
-	// else if (format == 'x' || format == 'X')
-	// 	p_len += ft_printf_hex(va_arg(*args, unsigned int), format, p_exf);
-	// else if (format == '%')
-	// 	p_len += ft_putchar(format);
+	else if (format == 'x' || format == 'X')
+		p_len += ft_printf_hex(va_arg(*args, unsigned int), format, p_exf);
+	else if (format == '%')
+		p_len += ft_putchar(format);
 	return (p_len);
 }
 
@@ -103,6 +103,6 @@ int	ft_printf(const char *format, ...)
 
 // int main(void)
 // {
-// 	printf("%d\n", printf("%-2.2d\n", -123));
-// 	printf("%d\n", ft_printf("%-2.2d\n", -123));
+// 	printf("%d\n", printf(" %-2x ", -1));
+// 	printf("%d\n", ft_printf(" %-2x ", -1));
 // }

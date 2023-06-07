@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:30:59 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/07 12:37:37 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/07 14:01:43 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,6 @@ static int ft_printf_sign(long long int *num, t_pformats *p_exf)
 	}
 	return (p_len);
 }
-
-// num_len -> 桁数
-// p_exf.width -> フィールド長
-// p_exf.prec -> 精度
 
 static int printf_intleft(long long int num, t_pformats *p_exf, int num_len)
 {

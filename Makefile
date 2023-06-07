@@ -10,6 +10,7 @@ SRC = ft_printf.c \
 		ft_printf_char.c \
 		ft_printf_string.c \
 		ft_printf_int.c \
+		ft_printf_hex.c \
 		ft_printf_utils.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(SRCS:%.c=%.o)

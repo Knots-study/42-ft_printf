@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:08:06 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/07 12:02:25 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/07 14:14:12 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_pformats
 	int	width;
 	int	prec;
 	int	prefix;
+	int hexconv;
 	int	zero;
 	int	space;
 	int plus;
@@ -43,8 +44,10 @@ int		ft_printf(const char *format, ...);
 int 	ft_printf_char(int c, t_pformats p_exf);
 int		ft_printf_string(const char *str, t_pformats p_exf);
 int		ft_printf_int(long long int num, t_pformats p_exf);
+int		ft_printf_hex(unsigned int num, const char format, t_pformats p_exf);
 
 int 	ft_putchar(unsigned char c);
+int		ft_putstr(const char *str, int times);
 int		ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 int 	repeat_char(int times, const char smth);
