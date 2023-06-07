@@ -2,7 +2,7 @@
 
 #Tripouille/printfTester
 cd printfTester
-make b
+make a
 cd ../
 
 #usatie/printf-tester-tokyo

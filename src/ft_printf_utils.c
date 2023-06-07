@@ -6,13 +6,13 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:13:00 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/07 12:02:07 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/07 15:30:39 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int ft_putchar(unsigned char c)
+int	ft_putchar(unsigned char c)
 {
 	write(STDOUT_FILENO, &c, 1);
 	return (1);
@@ -46,7 +46,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-int repeat_char(int times, const char smth)
+int	repeat_char(int times, const char smth)
 {
 	int	i;
 
