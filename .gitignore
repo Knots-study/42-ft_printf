@@ -1,5 +1,7 @@
 printfTester/*
 
+ft_printf_tester/*
+
 *.o
 *.a
 *.out

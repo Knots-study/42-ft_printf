@@ -38,10 +38,11 @@ cd ../
 # cd ../
 
 #paulo-santana/ft_printf_tester
-# cp libftprintf.a ./ft_printf_tester
-# cd ft_printf_tester
-# sh test
-# cd ../
+make re
+cp libftprintf.a ./ft_printf_tester
+cd ft_printf_tester
+sh test
+cd ../
 
 #cacharle/ft_printf_test
 # cd ft_printf_test

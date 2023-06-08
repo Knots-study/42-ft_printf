@@ -18,13 +18,13 @@ static void	check_printf_flags(t_pformats *p_exf, const char **format)
 	{
 		if (**format == '-')
 			p_exf->left = 1;
-		else if (**format == '0')
+		if (**format == '0')
 			p_exf->zero = 1;
-		else if (**format == '#')
+		if (**format == '#')
 			p_exf->prefix = 1;
-		else if (**format == ' ')
+		if (**format == ' ')
 			p_exf->space = 1;
-		else if (**format == '+')
+		if (**format == '+')
 			p_exf->plus = 1;
 		(*format)++;
 	}
@@ -41,6 +41,7 @@ static void	measure_width_prec(t_pformats *p_exf, const char **format)
 	if (**format == '.')
 	{
 		(*format)++;
+		p_exf->is_prec = 1;
 		while ('0' <= **format && **format <= '9')
 		{
 			p_exf->prec *= 10;
@@ -48,8 +49,6 @@ static void	measure_width_prec(t_pformats *p_exf, const char **format)
 			(*format)++;
 		}
 	}
-	else
-		p_exf->prec = -1;
 }
 
 static int	select_conspec(const char format, va_list *args, t_pformats p_exf)
@@ -61,14 +60,14 @@ static int	select_conspec(const char format, va_list *args, t_pformats p_exf)
 		p_len += ft_printf_char(va_arg(*args, int), p_exf);
 	else if (format == 's')
 		p_len += ft_printf_string(va_arg(*args, const char *), p_exf);
-	if (format == 'd' || format == 'i')
+	else if (format == 'd' || format == 'i')
 		p_len += ft_printf_int(va_arg(*args, int), p_exf);
 	else if (format == 'u')
 		p_len += ft_printf_int(va_arg(*args, unsigned int), p_exf);
 	else if (format == 'x' || format == 'X')
 		p_len += ft_printf_hex(va_arg(*args, unsigned int), format, p_exf);
 	else if (format == 'p')
-		p_len += ft_printf_hex(va_arg(*args, uintptr_t), format, p_exf);
+		p_len += ft_printf_ptr(va_arg(*args, uintptr_t), p_exf);
 	else if (format == '%')
 		p_len += ft_putchar(format);
 	return (p_len);
@@ -102,3 +101,11 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (p_len);
 }
+
+// int main(void)
+// {
+// 	char *null_str = NULL;
+
+// 	printf("%d\n",printf("%#5x\n", 1234));
+// 	printf("%d\n",ft_printf("%#5x\n", 1234));
+// }

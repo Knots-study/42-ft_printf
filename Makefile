@@ -11,6 +11,7 @@ SRC = ft_printf.c \
 		ft_printf_string.c \
 		ft_printf_int.c \
 		ft_printf_hex.c \
+		ft_printf_pointer.c \
 		ft_printf_utils.c \
 		ft_printf_utils_int.c \
 		ft_printf_utils_hex.c 

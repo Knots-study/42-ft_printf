@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:26:01 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/07 14:12:19 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/08 14:27:28 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_printf_string(const char *str, t_pformats p_exf)
 	p_len = 0;
 	if (str == NULL)
 		return (ft_putstr("(null)", ft_strlen("(null)")));
-	if (p_exf.prec == -1)
+	if (p_exf.is_prec == 0)
 		p_exf.prec = ft_strlen(str);
 	else
 		p_exf.prec = MIN(ft_strlen(str), p_exf.prec);
