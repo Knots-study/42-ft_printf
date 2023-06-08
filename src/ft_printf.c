@@ -14,6 +14,7 @@
 
 static void	check_printf_flags(t_pformats *p_exf, const char **format)
 {
+	*p_exf = (t_pformats){0};
 	while (ft_strchr(PRINTF_FLAGS, **format))
 	{
 		if (**format == '-')
@@ -30,25 +31,43 @@ static void	check_printf_flags(t_pformats *p_exf, const char **format)
 	}
 }
 
-static void	measure_width_prec(t_pformats *p_exf, const char **format)
+static int	measure_width_prec(const char **format)
 {
+	long long int	num;
+
+	num = 0;
 	while ('0' <= **format && **format <= '9')
 	{
-		p_exf->width *= 10;
-		p_exf->width += (**format - '0');
+		num *= 10;
+		num += (**format - '0');
+		if (num > INT_MAX)
+			return (-1);
 		(*format)++;
 	}
+	return ((int)num);
+}
+
+static int	check_printf_width_prec(t_pformats *p_exf, const char **format)
+{
+	long long int	prec;
+	long long int	width;
+
+	width = measure_width_prec(format);
+	prec = 0;
 	if (**format == '.')
 	{
 		(*format)++;
 		p_exf->is_prec = 1;
-		while ('0' <= **format && **format <= '9')
-		{
-			p_exf->prec *= 10;
-			p_exf->prec += (**format - '0');
-			(*format)++;
-		}
+		prec = measure_width_prec(format);
 	}
+	if (width == -1 || prec == -1)
+		return (1);
+	else
+	{
+		p_exf->prec = (int)prec;
+		p_exf->width = (int)width;
+	}
+	return (0);
 }
 
 static int	select_conspec(const char format, va_list *args, t_pformats p_exf)
@@ -88,9 +107,9 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
-			p_exf = (t_pformats){0};
 			check_printf_flags(&p_exf, &format);
-			measure_width_prec(&p_exf, &format);
+			if (check_printf_width_prec(&p_exf, &format))
+				return (-1);
 			if (ft_strchr(MODIFIER, *format))
 				p_len += select_conspec(*format, &args, p_exf);
 		}
@@ -101,11 +120,3 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (p_len);
 }
-
-// int main(void)
-// {
-// 	char *null_str = NULL;
-
-// 	printf("%d\n",printf("%#5x\n", 1234));
-// 	printf("%d\n",ft_printf("%#5x\n", 1234));
-// }

@@ -6,17 +6,11 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:13:00 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/07 15:30:39 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/08 19:38:39 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_putchar(unsigned char c)
-{
-	write(STDOUT_FILENO, &c, 1);
-	return (1);
-}
 
 int	ft_strlen(const char *s)
 {
@@ -56,5 +50,21 @@ int	repeat_char(int times, const char smth)
 		ft_putchar(smth);
 		i++;
 	}
-	return (MAX(times, 0));
+	return (max_int(times, 0));
+}
+
+int	max_int(int a, int b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
+
+int	min_int(int a, int b)
+{
+	if (a < b)
+		return (a);
+	else
+		return (b);
 }

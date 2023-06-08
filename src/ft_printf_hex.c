@@ -70,8 +70,8 @@ int	ft_printf_hex(uintptr_t num, const char format, t_pformats p_exf)
 		p_len += repeat_char(p_exf.width - p_exf.prec, ' ');
 		return (p_len);
 	}
-	p_exf.prec = MAX(num_len, p_exf.prec);
-	p_exf.width = MAX(p_exf.prec, p_exf.width);
+	p_exf.prec = max_int(num_len, p_exf.prec);
+	p_exf.width = max_int(p_exf.prec, p_exf.width);
 	if (format == 'X')
 		p_exf.hexconv = 1;
 	if (p_exf.left == 1)

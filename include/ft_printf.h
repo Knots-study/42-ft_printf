@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 11:08:06 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/08 17:18:13 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/08 19:38:04 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <unistd.h>
+# include <limits.h>
 
 # define MODIFIER "cspdiuxX%"
 # define HEX "0123456789abcdef"
 # define HEX_CAP "0123456789ABCDEF"
 # define PRINTF_FLAGS "#0- +"
-
-# define MAX(a, b) ((a) > (b) ? (a) : (b))
-# define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 typedef struct s_pformats
 {
@@ -33,7 +31,7 @@ typedef struct s_pformats
 	int	left;
 	int	width;
 	int	prec;
-	int is_prec;
+	int	is_prec;
 	int	prefix;
 	int	hexconv;
 	int	zero;
@@ -48,6 +46,8 @@ int			ft_printf_int(long long int num, t_pformats p_exf);
 int			ft_printf_hex(uintptr_t num, const char format, t_pformats p_exf);
 int			ft_printf_ptr(uintptr_t num, t_pformats p_exf);
 
+int			max_int(int a, int b);
+int			min_int(int a, int b);
 int			ft_putchar(unsigned char c);
 int			ft_putstr(const char *str, int times);
 int			ft_strlen(const char *s);

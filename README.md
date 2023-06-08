@@ -4,7 +4,6 @@
 ## tester
 - https://github.com/Tripouille/printfTester
 - https://github.com/gavinfielder/pft
-- https://github.com/AntoineBourin/printf-tester
 - https://github.com/paulo-santana/ft_printf_tester
 - https://github.com/usatie/printf-tester-tokyo
 - https://github.com/cacharle/ft_printf_test

@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 21:26:01 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/08 14:27:28 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/08 19:37:24 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	ft_printf_string(const char *str, t_pformats p_exf)
 	if (p_exf.is_prec == 0)
 		p_exf.prec = ft_strlen(str);
 	else
-		p_exf.prec = MIN(ft_strlen(str), p_exf.prec);
-	p_exf.width = MAX(p_exf.prec, p_exf.width);
+		p_exf.prec = min_int(ft_strlen(str), p_exf.prec);
+	p_exf.width = max_int(p_exf.prec, p_exf.width);
 	if (p_exf.left == 1)
 	{
 		p_len += ft_putstr(str, p_exf.prec);

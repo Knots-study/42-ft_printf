@@ -1,8 +1,8 @@
 printfTester/*
-
 ft_printf_tester/*
+printf-tester-tokyo/*
+pft/*
 
 *.o
 *.a
 *.out
-pft/

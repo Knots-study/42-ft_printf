@@ -6,11 +6,17 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 16:13:00 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/07 12:03:53 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/08 19:33:50 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	ft_putchar(unsigned char c)
+{
+	write(STDOUT_FILENO, &c, 1);
+	return (1);
+}
 
 int	ft_printf_char(int c, t_pformats p_exf)
 {
