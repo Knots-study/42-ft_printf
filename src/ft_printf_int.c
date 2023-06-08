@@ -6,7 +6,7 @@
 /*   By: knottey <Twitter:@knottey>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 23:30:59 by knottey           #+#    #+#             */
-/*   Updated: 2023/06/08 19:37:40 by knottey          ###   ########.fr       */
+/*   Updated: 2023/06/08 21:21:23 by knottey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	ft_printf_int(long long int num, t_pformats p_exf)
 		return (p_len);
 	}
 	p_exf.prec = max_int(num_len, p_exf.prec);
-	if (num < 0)
+	if (num < 0 || p_exf.plus == 1 || p_exf.space == 1)
 	{
 		num_len++;
 		p_exf.prec++;
